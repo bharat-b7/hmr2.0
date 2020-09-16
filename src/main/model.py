@@ -21,11 +21,11 @@ try:
 except:
     from tqdm import tqdm
 
-from main.config import Config
-from main.dataset import Dataset
-from main.discriminator import Discriminator
-from main.generator import Generator
-from main.model_util import batch_align_by_pelvis, batch_compute_similarity_transform, batch_rodrigues
+from src.main.config import Config
+from src.main.dataset import Dataset
+from src.main.discriminator import Discriminator
+from src.main.generator import Generator
+from src.main.model_util import batch_align_by_pelvis, batch_compute_similarity_transform, batch_rodrigues
 
 import tensorflow.compat.v1.losses as v1_loss
 
@@ -95,7 +95,8 @@ class Model:
             checkpoint = tf.train.Checkpoint(generator=self.generator,
                                              generator_opt=self.generator_opt)
 
-        self.checkpoint_manager = tf.train.CheckpointManager(checkpoint, self.config.LOG_DIR, max_to_keep=5)
+        # self.checkpoint_manager = tf.train.CheckpointManager(checkpoint, self.config.LOG_DIR, max_to_keep=5)
+        self.checkpoint_manager = tf.train.CheckpointManager(checkpoint, self.checkpoint_prefix, max_to_keep=5)
 
         # if a checkpoint exists, restore the latest checkpoint.
         if self.checkpoint_manager.latest_checkpoint:

@@ -5,9 +5,9 @@ import numpy as np
 import trimesh
 import trimesh.transformations as trans
 
-from main.local import LocalConfig
-from main.model import Model
-from notebooks.vis_util import preprocess_image, visualize, load_faces
+from src.main.local import LocalConfig
+from src.main.model import Model
+from src.notebooks.vis_util import preprocess_image, visualize, load_faces
 
 
 class TrimeshRenderer(object):
@@ -88,7 +88,8 @@ if __name__ == '__main__':
         BATCH_SIZE = 1
         ENCODER_ONLY = True
 
-        LOG_DIR = os.path.abspath('../../logs/lsp_toes')
+        # LOG_DIR = os.path.abspath('../../logs/lsp_toes')
+        LOG_DIR = os.path.abspath('../logs/lsp_toes')
         CUSTOM_REGRESSOR_IDX = {
             0: 'regressor_toes_right.npy',
             7: 'regressor_toes_left.npy'
@@ -104,7 +105,7 @@ if __name__ == '__main__':
 
     # initialize model
     model = Model()
-    original_img, input_img, params = preprocess_image('images/coco4.png', config.ENCODER_INPUT_SHAPE[0])
+    original_img, input_img, params = preprocess_image('..\\images\\frames\\frame000.jpg', config.ENCODER_INPUT_SHAPE[0])
 
     result = model.detect(input_img)
 
